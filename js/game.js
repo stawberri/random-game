@@ -41,7 +41,7 @@
   el.topBar.submit(function(ev) {
     ev.preventDefault();
 
-    var value = el.input.prop('value');
+    var value = $.trim(el.input.prop('value'));
 
     // Don't do anything if value is empty
     if(!value) {
