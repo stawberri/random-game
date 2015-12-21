@@ -1,0 +1,10 @@
+.reset-button {
+  background: transparent;
+  border: none; outline: none;
+}
+
+.removable-transition {
+  &.no-transition {
+    transition: none;
+  }
+}

@@ -1,2 +1,1 @@
-# random-game
-A random game idea
+[Play Random Game](https://rg.aideen.pw/)

@@ -1,0 +1,116 @@
+@import 'extends';
+
+$input-fade-time: .3s;
+$flash-speed: 1s;
+
+html, body {
+  width: 100%; height: 100%;
+  margin: 0;
+  font-size: 10px;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+html {
+  overflow: auto;
+  background-color: #fff;
+}
+
+body {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+#top-bar {
+  @extend .removable-transition;
+  flex: 0 0 auto;
+  position: relative;
+  height: 100px;
+  background-color: #fff;
+  background-image: linear-gradient(rgba(0, 0, 0, .01), transparent, rgba(0, 0, 0, .05));
+  overflow: hidden;
+  transition: background-color $flash-speed;
+}
+
+  #main-input {
+    position: absolute;
+    width: calc(100% - 100px); height: 100%;
+    font-size: 5rem;
+    background: none;
+    border: none; outline: none;
+    padding: 10px 20px;
+    box-sizing: border-box;
+
+    &:disabled {
+      color: initial;
+    }
+  }
+
+  #main-score {
+    @extend #main-input;
+    opacity: .3;
+    pointer-events: none;
+    line-height: 100px - 20px;
+    transition: opacity $input-fade-time;
+
+    #main-input.yes~& {
+      opacity: 0;
+    }
+  }
+
+  #main-submit {
+    @extend .reset-button;
+    position: absolute;
+    width: 100px; height: 100px;
+    top: 0; right: -100px;
+    background: rgba(0, 0, 0, .3);
+    font-size: 4rem;
+    color: #fff;
+    transition: right $input-fade-time;
+
+    #main-input.yes~& {
+      right: 0;
+    }
+  }
+
+#game-main {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+  #main-list {
+    display: flex;
+    margin: 20px;
+    padding: 0;
+    list-style: none;
+    counter-reset: main-list;
+    font-size: 5rem;
+    flex-flow: column nowrap;
+
+    li {
+      @extend .removable-transition;
+      transition: color $flash-speed, text-shadow $flash-speed;
+
+      &::before {
+        counter-increment: main-list;
+        content: counter(main-list);
+        padding-right: 10px;
+        font-size: .5em;
+        color: rgba(0, 0, 0, .5);
+      }
+    }
+  }
+
+  #footer {
+    padding-bottom: 50px;
+    text-align: center;
+  }
+
+    #attribution {
+      display: inline-block;
+      width: 100px; height: 20px;
+      padding: 30px;
+      font-size: 0;
+      color: transparent;
+      background: #f400a1 url(img/aideen.png) no-repeat center center;
+      background-clip: content-box;
+    }
