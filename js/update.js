@@ -1,21 +1,16 @@
 !function() {
   // Current data version
-  var dataStorageVersion = 1;
+  var dataStorageVersion = 2;
 
   rg.ls = Rhaboo.persistent('rg-ls');
 
   // Check localStorage version
   switch(rg.ls.v) {
     default:
+    case 0:
+    case 1:
       rg.ls.erase('d');
       rg.ls.write('d', {});
-    break;
-
-    case 0:
-      rg.ls.d.erase('list');
-      rg.ls.d.write('answers', $.map(rg.ls.d.answers, function(value, index) {
-        return LZString.compress(value);
-      }));
     break;
 
     case dataStorageVersion:

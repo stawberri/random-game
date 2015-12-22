@@ -29,10 +29,10 @@
 
   // http://stackoverflow.com/questions/521295/javascript-random-seeds
   rg.util.randomSeed = function(seed) {
+    var twister = new MersenneTwister(seed);
     return function() {
-      seed = Math.sin(seed) * 10000;
-      return seed - Math.floor(seed);
-    };
+      return twister.random.apply(twister, arguments);
+    }
   };
 
   // Append version to url to get around caching
