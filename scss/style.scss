@@ -19,8 +19,7 @@ html {
   top: 0; left: 0;
   width: 100%; height: 99px;
   border-bottom: 1px #fff solid;
-  background-color: rgba(255, 255, 255, .95);
-  background-image: linear-gradient(rgba(0, 0, 0, .01), transparent, rgba(0, 0, 0, .05));
+  background-color: #ddd;
   overflow: hidden;
   transition: background-color $flash-speed;
 }

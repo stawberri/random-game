@@ -85,7 +85,7 @@
         var answerIndex = $.inArray(LZString.compress(value), rg.answers);
         if(answerIndex > -1) {
           // It's already guessed!
-          color = 'rgba(0, 0, 255, .85)';
+          color = '#9966cc';
 
           // Analytics
           ga('send', 'event', 'input', 'duplicate', value);
@@ -97,9 +97,7 @@
             stringValue = 1;
           }
 
-          // Set opacity to a value based on value (which has a max of 10)
-          var opacity = .1 + stringValue / 20;
-          color = 'rgba(0, 255, 0, ' + opacity + ')';
+          color = '#81d8d0';
 
           // Add value to answers
           answerIndex = rg.answers.length;
@@ -121,11 +119,11 @@
         entryElement.removeClass('no-transition').css({color: '', textShadow: ''});
 
         // Figure out how much to scroll
-        var targetScroll = entryElement.offset().top - 100;
+        var targetScroll = entryElement.offset().top - 120;
         el.window.scrollTop(targetScroll);
       } else {
         // It's invalid.
-        color = 'rgba(255, 0, 0, .5)';
+        color = '#f400a1';
 
         // Penalize score
         var penalty = Math.ceil(rg.score() / 2);
