@@ -42,7 +42,7 @@
 
   // Version checks
   $.get('version.txt', {_: $.now()}, function(initial) {
-    rg.v = initial;
+    rg.v = $.trim(initial);
     setInterval(function() {
       $.get('version.txt', {_: $.now()}, function(current) {
         if(initial !== current) {

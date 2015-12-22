@@ -24,6 +24,9 @@
     // Make new answer
     rg.answers = [LZString.compress(rg.answers[Math.floor(Math.random() * rg.answers.length)])];
     rg.answers = rg.ls.d.write('answers', rg.answers).answers;
+
+    // Clear scroll if it exists
+    rg.ls.d.erase('scrollTop');
   } else {
     // Load old answer list
     rg.answers = rg.ls.d.answers;

@@ -51,6 +51,12 @@
       checkInput();
     }
 
+    // Save and restore scroll
+    el.window.scroll(function() {
+      rg.util.rhanum(rg.ls.d, 'scrollTop', String(el.window.scrollTop()));
+    });
+    el.window.scrollTop(rg.util.rhanum(rg.ls.d, 'scrollTop'));
+
     // Submit button
     var speedCap = 0;
     el.topBar.submit(function(ev) {
@@ -109,8 +115,8 @@
         entryElement.removeClass('no-transition').css({color: '', textShadow: ''});
 
         // Figure out how much to scroll
-        var targetScroll = entryElement.offset().top - el.main.offset().top + el.main.scrollTop() - 20;
-        el.main.scrollTop(targetScroll);
+        var targetScroll = entryElement.offset().top - 100;
+        el.window.scrollTop(targetScroll);
       } else {
         // It's invalid.
         color = 'rgba(255, 0, 0, .5)';
