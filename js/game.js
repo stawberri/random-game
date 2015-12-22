@@ -86,6 +86,9 @@
         if(answerIndex > -1) {
           // It's already guessed!
           color = 'rgba(0, 0, 255, .85)';
+
+          // Analytics
+          ga('send', 'event', 'input', 'duplicate', value);
         } else {
           // Approximately half chance of being 1 point
           var stringValue = Math.ceil(Math.random() * 20);
@@ -105,6 +108,9 @@
 
           // Award score
           el.scoreAmount.text(rg.score(stringValue));
+
+          // Analytics
+          ga('send', 'event', 'input', 'valid', value, stringValue);
         }
 
         var entryElement = el.list.find('li').eq(answerIndex);
@@ -124,6 +130,9 @@
         // Penalize score
         var penalty = Math.ceil(rg.score() / 2);
         el.scoreAmount.text(rg.score(-penalty));
+
+        // Analytics
+        ga('send', 'event', 'input', 'invalid', value);
       }
       el.topBar.addClass('no-transition').css('backgroundColor', color)[0].offsetHeight;
       el.topBar.removeClass('no-transition').css('backgroundColor', '');
