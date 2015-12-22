@@ -30,15 +30,26 @@
     // Display score
     el.scoreAmount.text(rg.score());
 
-    // Update css class to match whether or not text is there
+    // Input processing
     function checkInput() {
-      if(el.input.prop('value')) {
+      var value = el.input.prop('value');
+      // Update css class to match whether or not text is there
+      if(value) {
         el.input.addClass('yes');
+        rg.ls.d.write('input', LZString.compress(value));
       } else {
         el.input.removeClass('yes');
+        rg.ls.d.erase('input');
       }
+
     }
     el.input.keyup(checkInput);
+
+    // Restore input
+    if(rg.ls.d.input) {
+      el.input.prop('value', LZString.decompress(rg.ls.d.input));
+      checkInput();
+    }
 
     // Submit button
     var speedCap = 0;
