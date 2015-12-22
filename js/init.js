@@ -7,7 +7,7 @@
     return;
   }
 
-  var rg = {};
+  var rg = {v: $.now()};
 
   // Version checks
   $.get('version.txt', {_: $.now()}, function(initial) {
