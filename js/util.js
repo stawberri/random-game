@@ -34,4 +34,26 @@
       return seed - Math.floor(seed);
     };
   };
+
+  // Append version to url to get around caching
+  rg.util.l = function(url) {
+    if(url.search(/ /) < 0) {
+      // No spaces. Add a ? or a ; intelligently.
+      return url + ((url.search(/\?/) < 0) ? '?' : ';') + '_=' + rg.v;
+    } else {
+      // There's a space.
+      return url.replace(/ /, ((url.search(/\?/) < 0) ? '?' : ';') + '_=' + rg.v + ' ');
+    }
+  }
+
+  // Load a css file
+  var loadedCss = {};
+  rg.util.getcss = function(url, callback) {
+    return $.get(url, {_: rg.v}, function(data) {
+      loadedCss[url] = loadedCss[url] || $('<style>').appendTo('head').html(data);
+      if($.isFunction(callback)) {
+        callback();
+      }
+    }, 'text');
+  };
 }();

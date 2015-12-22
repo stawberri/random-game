@@ -64,5 +64,9 @@
   }
 
   // Actually launch game
-  rg.getScript('js/game.js');
+  rg.util.getcss('css/style.css').done(function() {
+    $('body').load(rg.util.l('html/game.html'), function() {
+      rg.getScript('js/game.js');
+    });
+  });
 }();

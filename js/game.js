@@ -18,6 +18,9 @@
       el.input.focus();
     }
   });
+  el.list.on('click', 'li', function(ev) {
+    el.input.prop('value', $(this).html()).addClass('yes');
+  });
 
   // Output all current answers
   $.each(rg.answers, function(index, value) {

@@ -11,6 +11,7 @@
 
   // Version checks
   $.get('version.txt', {_: $.now()}, function(initial) {
+    rg.v = initial;
     setInterval(function() {
       $.get('version.txt', {_: $.now()}, function(current) {
         if(initial !== current) {
