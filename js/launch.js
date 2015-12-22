@@ -1,48 +1,31 @@
 !function() {
-  var listTime = rg.util.rhanum(rg.ls.d, 'listTime');
-  if(!listTime || $.now() >= (listTime + 1) * 86400000) {
-    // Generate a new list
-    rg.ls.d.erase('list');
+  var listTime = Math.floor($.now() / 86400000);
+  var random = rg.util.randomSeed(listTime);
 
-    // Pretty simple seeder for now.
-    listTime = Math.floor($.now() / 86400000);
-    var random = rg.util.randomSeed(listTime);
-
-
-    // Generate strings
-    rg.list = {};
-    rg.answers = [];
-    for(i = 0; i < 1000; i++) {
-      var randomString = rg.util.randomString(16, random);
-      // Make sure there aren't any duplicates
-      while($.type(rg.list[randomString]) !== 'undefined') {
-        randomString += rg.util.randomString(1, random);
-      }
-      // Approximately half chance of being 1
-      var randomScore = Math.ceil(Math.random() * 20);
-      randomScore -= 10;
-      if(randomScore < 1) {
-        randomScore = 1;
-
-        // Consider making it the answer
-        if(Math.random() < .5) {
-          rg.answers.push(randomString);
-        }
-      }
-      // Add it to list
-      rg.list[randomString] = randomScore;
+  // Generate strings
+  rg.list = {};
+  rg.answers = [];
+  for(i = 0; i < 1000; i++) {
+    var randomString = rg.util.randomString(16, random);
+    // Make sure there aren't any duplicates
+    while($.type(rg.list[randomString]) !== 'undefined') {
+      randomString += rg.util.randomString(1, random);
     }
 
-    // Pick an answer
-    rg.answers = [rg.answers[Math.floor(Math.random() * rg.answers.length)]];
+    // Add it to list
+    rg.list[randomString] = true;
+    rg.answers.push(randomString);
+  }
 
-    // Write list and time
-    rg.ls.d.write('list', LZString.compress(JSON.stringify(rg.list)));
-    rg.answers = rg.ls.d.write('answers', rg.answers).answers;
+  if(listTime != rg.util.rhanum(rg.ls.d, 'listTime')) {
+    // Write time
     rg.util.rhanum(rg.ls.d, 'listTime', listTime);
+
+    // Make new answer
+    rg.answers = [LZString.compress(rg.answers[Math.floor(Math.random() * rg.answers.length)])];
+    rg.answers = rg.ls.d.write('answers', rg.answers).answers;
   } else {
-    // Load old lists
-    rg.list = JSON.parse(LZString.decompress(rg.ls.d.list));
+    // Load old answer list
     rg.answers = rg.ls.d.answers;
   }
 
@@ -50,7 +33,6 @@
   rg.score = function(mod) {
     var score = rg.util.rhanum(rg.ls.d, 'score') || 0;
     if($.type(mod) !== 'undefined') {
-      console.log(score, mod);
       score += Number(mod);
 
       // Score can't be negative
@@ -63,10 +45,11 @@
     return score;
   }
 
+  // Refresh when time is reached
+  setTimeout(function() {
+    location.reload();
+  }, (listTime + 1) * 86400000 - $.now() + 1000);
+
   // Actually launch game
-  rg.util.getcss('css/style.css').done(function() {
-    $('body').load(rg.util.l('html/game.html'), function() {
-      rg.getScript('js/game.js');
-    });
-  });
+  rg.getScript('js/game.js');
 }();
