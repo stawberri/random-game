@@ -7,19 +7,19 @@
     score: $('#main-score'),
     scoreAmount: $('#main-score .amount'),
     window: $(window),
+    html: $('html'),
     topBar: $('#top-bar'),
     main: $('#game-main')
   }
 
   // Setup input focus
   el.input.focus();
-  el.window.click(function(ev) {
-    if(!el.input.prop('disabled')) {
-      el.input.focus();
-    }
+  el.html.click(function(ev) {
+    el.input.focus();
   });
   el.list.on('click', 'li', function(ev) {
-    el.input.prop('value', $(this).html()).addClass('yes');
+    el.input.prop('value', $(this).html()).select();
+    checkInput();
   });
 
   // Output all current answers
@@ -30,14 +30,15 @@
   // Display score
   el.scoreAmount.text(rg.score());
 
-  // Show submit button when input has text
-  el.input.keyup(function(ev) {
-    if(this.value) {
-      $(this).addClass('yes');
+  // Update css class to match whether or not text is there
+  function checkInput() {
+    if(el.input.prop('value')) {
+      el.input.addClass('yes');
     } else {
-      $(this).removeClass('yes');
+      el.input.removeClass('yes');
     }
-  });
+  }
+  el.input.keyup(checkInput);
 
   // Submit button
   var speedCap = 0;
@@ -58,7 +59,8 @@
       speedCap = $.now() + 1000;
     }
 
-    el.input.prop({value: '', disabled: true}).removeClass('yes').blur();
+    el.input.prop({value: '', disabled: true}).blur();
+    checkInput();
     setTimeout(function() {
       el.input.prop('disabled', false).focus();
     }, 1000);

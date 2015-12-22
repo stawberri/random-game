@@ -7,19 +7,7 @@
     return;
   }
 
-  var rg = {v: $.now()};
-
-  // Version checks
-  $.get('version.txt', {_: $.now()}, function(initial) {
-    rg.v = initial;
-    setInterval(function() {
-      $.get('version.txt', {_: $.now()}, function(current) {
-        if(initial !== current) {
-          location.reload();
-        }
-      }, 'text');
-    }, 60000);
-  }, 'text');
+  var rg = {};
 
   // Create init function
   rg.init = function() {
@@ -52,6 +40,17 @@
     window.rg = rg;
   }
 
-  // Go!
-  rg.init();
+  // Version checks
+  $.get('version.txt', {_: $.now()}, function(initial) {
+    rg.v = initial;
+    setInterval(function() {
+      $.get('version.txt', {_: $.now()}, function(current) {
+        if(initial !== current) {
+          location.reload();
+        }
+      }, 'text');
+    }, 60000);
+
+    rg.init();
+  }, 'text');
 }();
