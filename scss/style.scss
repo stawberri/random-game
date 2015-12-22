@@ -89,6 +89,7 @@ body {
     li {
       @extend .removable-transition;
       transition: color $flash-speed, text-shadow $flash-speed;
+      cursor: pointer;
 
       &::before {
         counter-increment: main-list;

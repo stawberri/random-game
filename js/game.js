@@ -13,7 +13,6 @@
   }
 
   // Setup input focus
-  el.input.focus();
   el.html.click(function(ev) {
     el.input.focus();
   });
@@ -56,14 +55,11 @@
     if($.now() < speedCap) {
       return;
     } else {
-      speedCap = $.now() + 1000;
+      speedCap = $.now() + 100;
     }
 
-    el.input.prop({value: '', disabled: true}).blur();
+    el.input.prop('value', '');
     checkInput();
-    setTimeout(function() {
-      el.input.prop('disabled', false).focus();
-    }, 1000);
 
     // Is it a valid string?
     var stringValue = rg.list[value], color;

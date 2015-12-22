@@ -96,6 +96,7 @@ body {
 
 #main-list li {
   transition: color 1s, text-shadow 1s;
+  cursor: pointer;
 }
 
 #main-list li::before {
