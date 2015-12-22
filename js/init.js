@@ -26,9 +26,9 @@
       }, 'text');
     };
 
-    rg.getScript('lib/rhaboo.2015.11.8.js', pendingTasks[pendingTasks.push($.Deferred()) - 1].resolve);
-    rg.getScript('lib/lz-string.2015.11.9.js', pendingTasks[pendingTasks.push($.Deferred()) - 1].resolve);
-    rg.getScript('lib/mersenne-twister.2015.12.21.js', pendingTasks[pendingTasks.push($.Deferred()) - 1].resolve);
+    $.getScript('lib/rhaboo.2015.11.8.js', pendingTasks[pendingTasks.push($.Deferred()) - 1].resolve);
+    $.getScript('lib/lz-string.2015.11.9.js', pendingTasks[pendingTasks.push($.Deferred()) - 1].resolve);
+    $.getScript('lib/mersenne-twister.2015.12.21.js', pendingTasks[pendingTasks.push($.Deferred()) - 1].resolve);
     rg.getScript('js/util.js', pendingTasks[pendingTasks.push($.Deferred()) - 1].resolve);
 
     $.when.apply($, pendingTasks).done(function() {
